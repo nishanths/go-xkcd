@@ -9,9 +9,9 @@ import (
 
 type comicResponse struct {
 	Alt        string `json:"alt"`
-	Day        string `json"day"`
-	Image      string `json:"img"`
-	Link       string `json:"link"`
+	Day        string `json:"day"`
+	ImageURL   string `json:"img"`
+	URL        string `json:"link"`
 	Month      string `json:"month"`
 	Number     int    `json:"num"`
 	SafeTitle  string `json:"safe_title"`
@@ -23,14 +23,12 @@ type comicResponse struct {
 type Comic struct {
 	Alt         string
 	PublishDate time.Time
-	Image       string
-	Link        string
-	Month       string
+	ImageURL    string
+	URL         string
 	Number      int
 	SafeTitle   string
 	Title       string
 	Transcript  string
-	Year        string
 }
 
 func (comic *Comic) UnmarshalJSON(data []byte) error {
@@ -46,8 +44,8 @@ func (comic *Comic) UnmarshalJSON(data []byte) error {
 
 	comic.Alt = aux.Alt
 	comic.PublishDate = date
-	comic.Image = aux.Image
-	comic.Link = aux.Link
+	comic.ImageURL = aux.ImageURL
+	comic.URL = aux.URL
 	comic.Number = aux.Number
 	comic.SafeTitle = aux.SafeTitle
 	comic.Title = aux.Title
