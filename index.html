@@ -32,6 +32,8 @@
 
 <p>xkcd API client for Golang.</p>
 
+<p><a href="https://app.wercker.com/project/bykey/6c1de0bfd64a428d6ece5a2337268160"><img src="https://app.wercker.com/status/6c1de0bfd64a428d6ece5a2337268160/s" alt="wercker status" title="wercker status"></a> <a href="https://coveralls.io/github/nishanths/go-xkcd?branch=master"><img src="https://coveralls.io/repos/github/nishanths/go-xkcd/badge.svg?branch=master" alt="Coverage Status"></a></p>
+
 <p><a href="https://xkcd.com/1481/"><img alt="https://xkcd.com/1481/" title="https://xkcd.com/1481/" src="http://imgs.xkcd.com/comics/api.png" width="250"></a></p>
 
 <p>Details on the xkcd API can be found <a href="https://xkcd.com/json.html">here</a>.</p>
@@ -49,28 +51,29 @@
 <h2>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
 
-<p>The following program prints details about the latest comic:</p>
+<p>The following program prints details about <a href="http://xkcd.com/599">xkcd.com/599</a>:</p>
 
-<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+<pre><code>package main
 
-<span class="pl-k">import</span> (
-    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
-    <span class="pl-s"><span class="pl-pds">"</span>log<span class="pl-pds">"</span></span>
+import (
+    "fmt"
+    "log"
 
-    <span class="pl-s"><span class="pl-pds">"</span>github.com/nishanths/go-xkcd<span class="pl-pds">"</span></span>
+    "github.com/nishanths/go-xkcd"
 )
 
-<span class="pl-k">func</span> <span class="pl-en">main</span>() {
-    <span class="pl-smi">client</span> <span class="pl-k">:=</span> xkcd.<span class="pl-c1">NewClient</span>()
-    <span class="pl-smi">comic</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> client.<span class="pl-c1">Get</span>(<span class="pl-c1">599</span>)
+func main() {
+    client := xkcd.NewClient()
+    comic, err := client.Get(599)
 
-    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
-        log.<span class="pl-c1">Fatal</span>(err)
+    if err != nil {
+        log.Fatal(err)
     }
 
-    fmt.<span class="pl-c1">Printf</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">%s</span>: <span class="pl-c1">%s</span><span class="pl-pds">"</span></span>, comic.<span class="pl-smi">Title</span>, comic.<span class="pl-smi">ImageURL</span>) <span class="pl-c">// Apocalypse: http://imgs.xkcd.com/comics/apocalypse.png</span>
+    fmt.Printf("%s: %s", comic.Title, comic.ImageURL) // Apocalypse: http://imgs.xkcd.com/comics/apocalypse.png
 }
-</pre></div>
+
+</code></pre>
 
 <h2>
 <a id="test" class="anchor" href="#test" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test</h2>
@@ -83,13 +86,39 @@
 <h2>
 <a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documentation</h2>
 
+<p>To view go docs, after installing the package run:</p>
+
+<pre><code>$ godoc -http=:6060
+</code></pre>
+
+<p>Then visit <a href="http://localhost:6060/pkg/github.com/nishanths/go-xkcd/"><code>http://localhost:6060/pkg/github.com/nishanths/go-xkcd/</code></a> in your browser.</p>
+
+<h4>
+<a id="methods" class="anchor" href="#methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Methods</h4>
+
 <p>The following methods are available on the client. All the methods return <code>(Comic, error)</code>.</p>
 
 <ul>
-<li><code>GetLatest()</code></li>
+<li><code>Latest()</code></li>
 <li><code>Get(number int)</code></li>
-<li><code>GetRandom(options ...int)</code></li>
+<li><code>Random()</code></li>
+<li><code>RandomInRange(begin, end, latest int)</code></li>
 </ul>
+
+<p>The fields available on <code>Comic</code> are:</p>
+
+<pre><code>type Comic struct {
+    Alt         string
+    PublishDate time.Time
+    ImageURL    string
+    URL         string
+    News        string
+    Number      int
+    SafeTitle   string
+    Title       string
+    Transcript  string
+}
+</code></pre>
 
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
