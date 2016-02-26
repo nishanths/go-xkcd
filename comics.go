@@ -78,7 +78,7 @@ func (c *Client) doComicRequest(path string) (Comic, error) {
 	return comic, nil
 }
 
-func (c *Client) GetLatest() (Comic, error) {
+func (c *Client) Latest() (Comic, error) {
 	return c.doComicRequest("/info.0.json")
 }
 
@@ -88,26 +88,34 @@ func (c *Client) Get(number int) (Comic, error) {
 }
 
 func (c *Client) getLatestComicNumber() (int, error) {
-	comic, err := c.GetLatest()
+	comic, err := c.Latest()
 	if err != nil {
 		return 0, err
 	}
 	return comic.Number, nil
 }
 
-// GetRandom returns a random comic.
+// Random returns a random comic.
+// The underlying random number generator's behavior may not match
+// the behavior of the Random button on xkcd.com.
+//
+func (c *Client) Random() (Comic, error) {
+	return c.RandomInRange(-1, -1, -1)
+}
+
+// RandomInRange returns a random comic using the given options.
 // The underlying random number generator's behavior may not match
 // the behavior of the Random button on xkcd.com.
 //
 // begin (inclusive) and end (exclusive) specify the range that
 // the randomly chosen comic number can be in. If  begin equals -1,
-// the number of the first comic is used. Likewise, if  end equals
-// -1, the number of the latest comic + 1 is used.
+// begin defaults to "the number of the first comic". Likewise, if end equals
+// -1, end defaults to "the number of the latest comic + 1".
 //
 // latest specfies the number of the latest xkcd comic. Specifying the
 // number eliminates the overhead of performing an additional HTTP request
 // to find this number. Pass in -1 if unknown.
-func (c *Client) GetRandom(begin, end, latest int) (comic Comic, err error) {
+func (c *Client) RandomInRange(begin, end, latest int) (comic Comic, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = fmt.Errorf("%s", r)
@@ -129,7 +137,7 @@ func (c *Client) GetRandom(begin, end, latest int) (comic Comic, err error) {
 		end = latest + 1
 	}
 
-	number := randomInRange(begin, end)
+	number := randomInt(begin, end)
 	comic, err = c.Get(number)
 	return
 }

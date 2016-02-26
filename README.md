@@ -22,7 +22,7 @@ Each major version has a separate branch. If you need a specific version, please
 
 The following program prints details about the latest comic:
 
-```go
+```
 package main
 
 import (
@@ -55,17 +55,26 @@ $ go test
 
 ## Documentation
 
+To view go docs, after installing the package run:
+
+```
+$ godoc -http=:6060
+```
+
+Then visit [`http://localhost:6060/pkg/github.com/nishanths/go-xkcd/`](http://localhost:6060/pkg/github.com/nishanths/go-xkcd/) in your browser.
+
+#### Methods
+
 The following methods are available on the client. All the methods return `(Comic, error)`.
 
-* `GetLatest()`
+* `Latest()`
 * `Get(number int)`
-* `GetRandom(options ...int)`
-
-See [`comics.go`](https://github.com/nishanths/go-xkcd/blob/master/comics.go) for doc comments.
+* `Random()`
+* `RandomInRange(begin, end, latest int)`
 
 The fields available on `Comic` are:
 
-```go
+```
 type Comic struct {
 	Alt         string
 	PublishDate time.Time

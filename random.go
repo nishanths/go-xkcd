@@ -27,6 +27,6 @@ func (r *lockedRandSource) Seed(seed int64) {
 	r.lock.Unlock()
 }
 
-func randomInRange(begin, end int) int {
+func randomInt(begin, end int) int {
 	return random.Intn(end-begin) + begin
 }

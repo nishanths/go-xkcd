@@ -11,10 +11,10 @@ type Option struct {
 	begin, end, latest int
 }
 
-func TestGetLatest(t *testing.T) {
+func TestLatest(t *testing.T) {
 	t.Parallel()
 
-	_, err := c.GetLatest()
+	_, err := c.Latest()
 	if err != nil {
 		t.Fail()
 	}
@@ -56,7 +56,7 @@ func TestGetNotFound(t *testing.T) {
 	}
 }
 
-func TestGetRandom(t *testing.T) {
+func TestRandomInRange(t *testing.T) {
 	t.Parallel()
 	var wg sync.WaitGroup
 
@@ -71,7 +71,7 @@ func TestGetRandom(t *testing.T) {
 	for _, r := range options {
 		go func(r Option) {
 			defer wg.Done()
-			comic, err := c.GetRandom(r.begin, r.end, r.latest)
+			comic, err := c.RandomInRange(r.begin, r.end, r.latest)
 
 			if err != nil {
 				t.Fail()
@@ -92,7 +92,7 @@ func TestGetRandom(t *testing.T) {
 	wg.Wait()
 }
 
-func TestGetRandomError(t *testing.T) {
+func TestRandomInRangeError(t *testing.T) {
 	t.Parallel()
 	var wg sync.WaitGroup
 
@@ -105,7 +105,7 @@ func TestGetRandomError(t *testing.T) {
 	for _, r := range options {
 		go func(r Option) {
 			defer wg.Done()
-			_, err := c.GetRandom(r.begin, r.end, r.latest)
+			_, err := c.RandomInRange(r.begin, r.end, r.latest)
 
 			if err == nil {
 				t.Fail()
@@ -116,16 +116,11 @@ func TestGetRandomError(t *testing.T) {
 	wg.Wait()
 }
 
-// tell GetRandom that only one comic has been published
-func TestGetRandomWithLatest(t *testing.T) {
+func TestRandom(t *testing.T) {
 	t.Parallel()
 
-	comic, err := c.GetRandom(-1, -1, 1)
+	_, err := c.Random()
 	if err != nil {
-		t.Fail()
-	}
-
-	if comic.Number != 1 {
 		t.Fail()
 	}
 }
