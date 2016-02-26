@@ -43,7 +43,7 @@ func TestGetNotFound(t *testing.T) {
 		t.Fail()
 	}
 
-	xkcdErr, ok := err.(Error)
+	statusErr, ok := err.(StatusError)
 
 	// should be ok if the request succeeded
 	// and we received a response
@@ -51,7 +51,7 @@ func TestGetNotFound(t *testing.T) {
 		t.Fail()
 	}
 
-	if xkcdErr.StatusCode != 404 {
+	if statusErr.StatusCode != 404 {
 		t.Fail()
 	}
 }

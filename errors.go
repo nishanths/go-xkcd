@@ -5,18 +5,18 @@ import (
 	"net/http"
 )
 
-type Error struct {
+type StatusError struct {
 	StatusCode int
 	StatusText string
 }
 
-func newError(code int) Error {
-	return Error{
+func newStatusError(code int) StatusError {
+	return StatusError{
 		StatusCode: code,
 		StatusText: http.StatusText(code),
 	}
 }
 
-func (e Error) Error() string {
+func (e StatusError) Error() string {
 	return fmt.Sprintf("%d: %s", e.StatusCode, e.StatusText)
 }
