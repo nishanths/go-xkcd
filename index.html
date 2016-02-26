@@ -6,10 +6,8 @@
     <title>Go-xkcd by nishanths</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -19,7 +17,10 @@
       <header>
         <h1>Go-xkcd</h1>
         <p>xkcd API client in Golang</p>
+
         <p class="view"><a href="https://github.com/nishanths/go-xkcd">View the Project on GitHub <small>nishanths/go-xkcd</small></a></p>
+
+
         <ul>
           <li><a href="https://github.com/nishanths/go-xkcd/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/nishanths/go-xkcd/tarball/master">Download <strong>TAR Ball</strong></a></li>
@@ -28,7 +29,8 @@
       </header>
       <section>
         <h1>
-<a id="go-xkcd" class="anchor" href="#go-xkcd" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>go-xkcd</h1>
+<a id="go-xkcd" class="anchor" href="#go-xkcd" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/nishanths/go-xkcd">go-xkcd</a>
+</h1>
 
 <p>xkcd API client for Golang.</p>
 
@@ -53,27 +55,26 @@
 
 <p>The following program prints details about <a href="http://xkcd.com/599">xkcd.com/599</a>:</p>
 
-<pre><code>package main
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
 
-import (
-    "fmt"
-    "log"
+<span class="pl-k">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>log<span class="pl-pds">"</span></span>
 
-    "github.com/nishanths/go-xkcd"
+    <span class="pl-s"><span class="pl-pds">"</span>github.com/nishanths/go-xkcd<span class="pl-pds">"</span></span>
 )
 
-func main() {
-    client := xkcd.NewClient()
-    comic, err := client.Get(599)
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-smi">client</span> <span class="pl-k">:=</span> xkcd.<span class="pl-c1">NewClient</span>()
+    <span class="pl-smi">comic</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> client.<span class="pl-c1">Get</span>(<span class="pl-c1">599</span>)
 
-    if err != nil {
-        log.Fatal(err)
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatal</span>(err)
     }
 
-    fmt.Printf("%s: %s", comic.Title, comic.ImageURL) // Apocalypse: http://imgs.xkcd.com/comics/apocalypse.png
+    fmt.<span class="pl-c1">Printf</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">%s</span>: <span class="pl-c1">%s</span><span class="pl-pds">"</span></span>, comic.<span class="pl-smi">Title</span>, comic.<span class="pl-smi">ImageURL</span>) <span class="pl-c">// Apocalypse: http://imgs.xkcd.com/comics/apocalypse.png</span>
 }
-
-</code></pre>
+</pre></div>
 
 <h2>
 <a id="test" class="anchor" href="#test" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test</h2>
@@ -140,12 +141,12 @@ func main() {
 
 <p>The <a href="http://nishanths.mit-license.org">MIT License</a>. Copyright © <a href="https://github.com/nishanths">Nishanth Shanmugham</a>.</p>
       </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/nishanths">nishanths</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/nishanths">nishanths</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    <script src="javascripts/scale.fix.js"></script>
     
   </body>
 </html>
