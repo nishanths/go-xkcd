@@ -2,7 +2,7 @@
 
 xkcd API client for Golang.
 
-<img alt="https://xkcd.com/1481/" src="http://imgs.xkcd.com/comics/api.png" width="250">
+[<img alt="https://xkcd.com/1481/" title="https://xkcd.com/1481/" src="http://imgs.xkcd.com/comics/api.png" width="250">](https://xkcd.com/1481/)
 
 Details on the xkcd API can be found [here](https://xkcd.com/json.html).
 
@@ -32,13 +32,13 @@ import (
 
 func main() {
     client := xkcd.NewClient()
-    comic, err := client.GetLatest()
+    comic, err := client.Get(599)
 
     if err != nil {
         log.Fatal(err)
     }
 
-    fmt.Printf("%s: %s", comic.Title, comic.ImageURL)
+    fmt.Printf("%s: %s", comic.Title, comic.ImageURL) // Apocalypse: http://imgs.xkcd.com/comics/apocalypse.png
 }
 
 ```
@@ -57,7 +57,7 @@ The following methods are available on the client. All the methods return `(Comi
 
 * `GetLatest()`
 * `Get(number int)`
-* `GetRandom(options ...int)` 
+* `GetRandom(options ...int)`
 
 ## Contributing
 
