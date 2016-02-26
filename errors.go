@@ -10,7 +10,7 @@ type Error struct {
 	StatusText string
 }
 
-func NewError(code int) Error {
+func newError(code int) Error {
 	return Error{
 		StatusCode: code,
 		StatusText: http.StatusText(code),

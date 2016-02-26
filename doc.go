@@ -1,5 +1,5 @@
 /*
-package xkcd provides methods to make requests to the xkcd.com API. Details on the xkcd API can be found at https://xkcd.com/json.html.
+package xkcd provides methods to make requests to the xkcd.com API.
 
 Example:
 
@@ -11,5 +11,7 @@ Example:
     }
 
     fmt.Printf("%+v", comic)
+
+Details on the xkcd API can be found at https://xkcd.com/json.html.
 */
 package xkcd

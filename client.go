@@ -49,5 +49,5 @@ func (c *Client) do(req *http.Request) (io.ReadCloser, error) {
 		return res.Body, nil
 	}
 
-	return nil, NewError(res.StatusCode)
+	return nil, newError(res.StatusCode)
 }
