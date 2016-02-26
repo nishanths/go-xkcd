@@ -13,6 +13,7 @@ type comicResponse struct {
 	ImageURL   string `json:"img"`
 	URL        string `json:"link"`
 	Month      string `json:"month"`
+	News       string `json:"news"`
 	Number     int    `json:"num"`
 	SafeTitle  string `json:"safe_title"`
 	Title      string `json:"title"`
@@ -25,6 +26,7 @@ type Comic struct {
 	PublishDate time.Time
 	ImageURL    string
 	URL         string
+	News        string
 	Number      int
 	SafeTitle   string
 	Title       string
@@ -47,6 +49,7 @@ func (comic *Comic) UnmarshalJSON(data []byte) error {
 	comic.ImageURL = aux.ImageURL
 	comic.URL = aux.URL
 	comic.Number = aux.Number
+	comic.News = aux.News
 	comic.SafeTitle = aux.SafeTitle
 	comic.Title = aux.Title
 	comic.Transcript = aux.Transcript
