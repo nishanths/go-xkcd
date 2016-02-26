@@ -2,8 +2,18 @@ package xkcd
 
 import (
 	"io"
+	"math/rand"
 	"net/http"
+	"time"
 )
+
+func init() {
+	random = rand.New(
+		&lockedRandSource{
+			src: rand.NewSource(time.Now().UnixNano()),
+		},
+	)
+}
 
 // Client represents the HTTP client
 // and any settings used to make requests

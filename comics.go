@@ -2,6 +2,7 @@ package xkcd
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -84,4 +85,51 @@ func (c *Client) GetLatest() (Comic, error) {
 func (c *Client) Get(number int) (Comic, error) {
 	numStr := strconv.Itoa(number)
 	return c.doComicRequest("/" + numStr + "/info.0.json")
+}
+
+func (c *Client) getLatestComicNumber() (int, error) {
+	comic, err := c.GetLatest()
+	if err != nil {
+		return 0, err
+	}
+	return comic.Number, nil
+}
+
+// GetRandom returns a random comic.
+// The underlying random number generator's behavior may not match
+// the behavior of the Random button on xkcd.com.
+//
+// begin (inclusive) and end (exclusive) specify the range that
+// the randomly chosen comic number can be in. If  begin equals -1,
+// the number of the first comic is used. Likewise, if  end equals
+// -1, the number of the latest comic + 1 is used.
+//
+// latest specfies the number of the latest xkcd comic. Specifying the
+// number eliminates the overhead of performing an additional HTTP request
+// to find this number. Pass in -1 if unknown.
+func (c *Client) GetRandom(begin, end, latest int) (comic Comic, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("%s", r)
+		}
+	}()
+
+	if begin == -1 {
+		begin = 1 // 1 is the first xkcd comic
+	}
+
+	if latest == -1 {
+		latest, err = c.getLatestComicNumber()
+		if err != nil {
+			return
+		}
+	}
+
+	if end == -1 {
+		end = latest + 1
+	}
+
+	number := randomInRange(begin, end)
+	comic, err = c.Get(number)
+	return
 }
