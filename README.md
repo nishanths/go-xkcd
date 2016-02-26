@@ -61,6 +61,24 @@ The following methods are available on the client. All the methods return `(Comi
 * `Get(number int)`
 * `GetRandom(options ...int)`
 
+See [`comics.go`](https://github.com/nishanths/go-xkcd/blob/master/comics.go) for doc comments.
+
+The fields available on `Comic` are:
+
+```go
+type Comic struct {
+	Alt         string
+	PublishDate time.Time
+	ImageURL    string
+	URL         string
+	News        string
+	Number      int
+	SafeTitle   string
+	Title       string
+	Transcript  string
+}
+```
+
 ## Contributing
 
 Pull requests and issues are welcome!
