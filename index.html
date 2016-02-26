@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Go-xkcd by nishanths</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Go-xkcd</h1>
+        <p>xkcd API client in Golang</p>
+        <p class="view"><a href="https://github.com/nishanths/go-xkcd">View the Project on GitHub <small>nishanths/go-xkcd</small></a></p>
+        <ul>
+          <li><a href="https://github.com/nishanths/go-xkcd/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/nishanths/go-xkcd/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/nishanths/go-xkcd">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="go-xkcd" class="anchor" href="#go-xkcd" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>go-xkcd</h1>
+
+<p>xkcd API client for Golang.</p>
+
+<p><a href="https://xkcd.com/1481/"><img alt="https://xkcd.com/1481/" title="https://xkcd.com/1481/" src="http://imgs.xkcd.com/comics/api.png" width="250"></a></p>
+
+<p>Details on the xkcd API can be found <a href="https://xkcd.com/json.html">here</a>.</p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+
+<pre><code>$ go get github.com/nishanths/go-xkcd
+</code></pre>
+
+<p>Import the package using <code>github.com/nishanths/go-xkcd</code> and refer to it as <code>xkcd</code>. </p>
+
+<p>Each major version has a separate branch. If you need a specific version, please clone the branch instead.</p>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
+
+<p>The following program prints details about the latest comic:</p>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>log<span class="pl-pds">"</span></span>
+
+    <span class="pl-s"><span class="pl-pds">"</span>github.com/nishanths/go-xkcd<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-smi">client</span> <span class="pl-k">:=</span> xkcd.<span class="pl-c1">NewClient</span>()
+    <span class="pl-smi">comic</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> client.<span class="pl-c1">Get</span>(<span class="pl-c1">599</span>)
+
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatal</span>(err)
+    }
+
+    fmt.<span class="pl-c1">Printf</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">%s</span>: <span class="pl-c1">%s</span><span class="pl-pds">"</span></span>, comic.<span class="pl-smi">Title</span>, comic.<span class="pl-smi">ImageURL</span>) <span class="pl-c">// Apocalypse: http://imgs.xkcd.com/comics/apocalypse.png</span>
+}
+</pre></div>
+
+<h2>
+<a id="test" class="anchor" href="#test" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test</h2>
+
+<p>To run tests:</p>
+
+<pre><code>$ go test
+</code></pre>
+
+<h2>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>The following methods are available on the client. All the methods return <code>(Comic, error)</code>.</p>
+
+<ul>
+<li><code>GetLatest()</code></li>
+<li><code>Get(number int)</code></li>
+<li><code>GetRandom(options ...int)</code></li>
+</ul>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Pull requests and issues are welcome!</p>
+
+<p>To create a new pull request:</p>
+
+<ol>
+<li>Fork the repository</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request on GitHub</li>
+</ol>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>The <a href="http://nishanths.mit-license.org">MIT License</a>. Copyright © <a href="https://github.com/nishanths">Nishanth Shanmugham</a>.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/nishanths">nishanths</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
