@@ -1,6 +1,8 @@
-# go-xkcd
+# go-xkcd 
 
 xkcd API client for Golang.
+
+[![wercker status](https://app.wercker.com/status/6c1de0bfd64a428d6ece5a2337268160/s "wercker status")](https://app.wercker.com/project/bykey/6c1de0bfd64a428d6ece5a2337268160) [![Coverage Status](https://coveralls.io/repos/github/nishanths/go-xkcd/badge.svg?branch=master)](https://coveralls.io/github/nishanths/go-xkcd?branch=master)
 
 [<img alt="https://xkcd.com/1481/" title="https://xkcd.com/1481/" src="http://imgs.xkcd.com/comics/api.png" width="250">](https://xkcd.com/1481/)
 
