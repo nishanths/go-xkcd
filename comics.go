@@ -98,7 +98,6 @@ func (c *Client) getLatestComicNumber() (int, error) {
 // Random returns a random comic.
 // The underlying random number generator's behavior may not match
 // the behavior of the Random button on xkcd.com.
-//
 func (c *Client) Random() (Comic, error) {
 	return c.RandomInRange(-1, -1, -1)
 }

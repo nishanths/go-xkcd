@@ -14,7 +14,7 @@ var c = &Client{
 
 func TestDo(t *testing.T) {
 	t.Parallel()
-	req, err := http.NewRequest("GET", "http://xkcd.com/info.0.json", nil)
+	req, err := http.NewRequest("GET", "https://xkcd.com/info.0.json", nil)
 
 	if err != nil {
 		t.Fail()
@@ -29,7 +29,7 @@ func TestDo(t *testing.T) {
 
 func TestDoError(t *testing.T) {
 	t.Parallel()
-	req, _ := http.NewRequest("GET", "http://xkcd.com/F@Jfsf.json", nil)
+	req, _ := http.NewRequest("GET", "https://xkcd.com/F@Jfsf.json", nil)
 	_, err := c.do(req)
 
 	if err == nil {
