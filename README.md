@@ -1,4 +1,4 @@
-# go-xkcd 
+# [go-xkcd](https://github.com/nishanths/go-xkcd)
 
 xkcd API client for Golang.
 
@@ -22,7 +22,7 @@ Each major version has a separate branch. If you need a specific version, please
 
 The following program prints details about [xkcd.com/599](http://xkcd.com/599):
 
-```
+```go
 package main
 
 import (

@@ -4,7 +4,7 @@ package xkcd provides methods to make requests to the xkcd.com API.
 Example:
 
     client := xkcd.NewClient()
-    comic, err := client.GetLatest()
+    comic, err := client.Latest()
 
     if err != nil {
         log.Fatal(err)
