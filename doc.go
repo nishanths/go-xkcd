@@ -12,6 +12,10 @@ Example:
 
     fmt.Printf("%+v", comic)
 
-Details on the xkcd API can be found at https://xkcd.com/json.html.
+
+The Random() and RandomInRange() functions are safe to call concurrently.
+They also do not modify the global random number generator.
+
+More details on the xkcd API can be found at https://xkcd.com/json.html.
 */
 package xkcd

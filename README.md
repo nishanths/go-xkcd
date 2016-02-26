@@ -20,7 +20,7 @@ Each major version has a separate branch. If you need a specific version, please
 
 ## Example
 
-The following program prints details about the latest comic:
+The following program prints details about [xkcd.com/599](http://xkcd.com/599):
 
 ```
 package main

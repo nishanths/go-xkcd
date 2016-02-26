@@ -22,6 +22,8 @@ type comicResponse struct {
 	Year       string `json:"year"`
 }
 
+// Comic represents information and metadata
+// about a single xkcd comic.
 type Comic struct {
 	Alt         string
 	PublishDate time.Time
@@ -34,6 +36,7 @@ type Comic struct {
 	Transcript  string
 }
 
+// UnmarshalJSON unmarshals the response from the xkcd enpoint
 func (comic *Comic) UnmarshalJSON(data []byte) error {
 	var aux comicResponse
 	if err := json.Unmarshal(data, &aux); err != nil {
@@ -78,10 +81,14 @@ func (c *Client) doComicRequest(path string) (Comic, error) {
 	return comic, nil
 }
 
+// Latest returns the latest comic's information
 func (c *Client) Latest() (Comic, error) {
 	return c.doComicRequest("/info.0.json")
 }
 
+// Get returns the comic for the specified number.
+// The number is the comic number in the xkcd.com url.
+// For example: https://xkcd.com/193.
 func (c *Client) Get(number int) (Comic, error) {
 	numStr := strconv.Itoa(number)
 	return c.doComicRequest("/" + numStr + "/info.0.json")
@@ -98,6 +105,7 @@ func (c *Client) getLatestComicNumber() (int, error) {
 // Random returns a random comic.
 // The underlying random number generator's behavior may not match
 // the behavior of the Random button on xkcd.com.
+// Random never performs a request for a non-existent comic number.
 func (c *Client) Random() (Comic, error) {
 	return c.RandomInRange(-1, -1, -1)
 }
