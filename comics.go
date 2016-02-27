@@ -106,6 +106,8 @@ func (c *Client) getLatestComicNumber() (int, error) {
 // The underlying random number generator's behavior may not match
 // the behavior of the Random button on xkcd.com.
 // Random never performs a request for a non-existent comic number.
+//
+// Also see: RandomInRange()
 func (c *Client) Random() (Comic, error) {
 	return c.RandomInRange(-1, -1, -1)
 }
@@ -114,14 +116,15 @@ func (c *Client) Random() (Comic, error) {
 // The underlying random number generator's behavior may not match
 // the behavior of the Random button on xkcd.com.
 //
-// begin (inclusive) and end (exclusive) specify the range that
-// the randomly chosen comic number can be in. If  begin equals -1,
-// begin defaults to "the number of the first comic". Likewise, if end equals
-// -1, end defaults to "the number of the latest comic + 1".
+// [begin, end) specify the range that the randomly chosen comic number
+// can be in. If  begin equals -1, begin defaults to
+// the number of the first comic. Likewise, if end equals
+// -1, end defaults to the number of the latest comic + 1.
 //
 // latest specfies the number of the latest xkcd comic. Specifying the
 // number eliminates the overhead of performing an additional HTTP request
-// to find this number. Pass in -1 if unknown.
+// to find this number. Pass in -1 to let RandomInRange() find the latest
+// common number by performing the additional request.
 func (c *Client) RandomInRange(begin, end, latest int) (comic Comic, err error) {
 	defer func() {
 		if r := recover(); r != nil {
