@@ -124,7 +124,7 @@ func (c *Client) Random() (Comic, error) {
 // latest specfies the number of the latest xkcd comic. Specifying the
 // number eliminates the overhead of performing an additional HTTP request
 // to find this number. Pass in -1 to let RandomInRange() find the latest
-// common number by performing the additional request.
+// comic number by performing the additional request.
 func (c *Client) RandomInRange(begin, end, latest int) (comic Comic, err error) {
 	defer func() {
 		if r := recover(); r != nil {
