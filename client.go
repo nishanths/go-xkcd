@@ -44,10 +44,8 @@ func (c *Client) baseURL() string {
 	return protocol + "xkcd.com"
 }
 
-// do performs a http request. If the request was successful the
-// response body and a nil error are returned. If the request failed or
-// there was an error in the response, a non-nil error is returned.
-// The returned response body has to be closed by the caller.
+// do performs a http request. If there is no error, the caller is responsible
+// for closing the returned response body.
 func (c *Client) do(req *http.Request) (io.ReadCloser, error) {
 	res, err := c.HTTPClient.Do(req)
 
@@ -55,10 +53,10 @@ func (c *Client) do(req *http.Request) (io.ReadCloser, error) {
 		return nil, err
 	}
 
-	if res.StatusCode == 200 {
-		return res.Body, nil
+	if res.StatusCode != 200 {
+		res.Body.Close()
+		return nil, newStatusError(res.StatusCode)
 	}
 
-	res.Body.Close()
-	return nil, newStatusError(res.StatusCode)
+	return res.Body, nil
 }
