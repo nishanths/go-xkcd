@@ -27,6 +27,7 @@ The following program prints details about [xkcd.com/599](http://xkcd.com/599):
 package main
 
 import (
+    "context"
     "fmt"
     "log"
 
