@@ -10,6 +10,7 @@ import (
 	"strconv"
 )
 
+// BaseURL is the default base URL for the xkcd JSON API.
 const BaseURL = "https://xkcd.com"
 
 type Client struct {
@@ -17,6 +18,8 @@ type Client struct {
 	BaseURL    string
 }
 
+// NewClient constructs a client using http.DefaultClient and the default
+// base URL. It is ready for use.
 func NewClient() *Client {
 	return &Client{
 		HTTPClient: http.DefaultClient,
@@ -38,6 +41,7 @@ type comicResponse struct {
 	Year       string `json:"year"`
 }
 
+// Comic contains information about an xkcd comic.
 type Comic struct {
 	Alt        string
 	Day        int
@@ -52,6 +56,8 @@ type Comic struct {
 	Year       int
 }
 
+// StatusError is returned when a bad response status code is received
+// from the API.
 type StatusError struct {
 	Code int
 }
@@ -62,10 +68,12 @@ func (e StatusError) Error() string {
 	return fmt.Sprintf("bad response status code: %d", e.Code)
 }
 
+// Get fetches the xkcd comic for the given comic number.
 func (c *Client) Get(ctx context.Context, number int) (Comic, error) {
 	return c.do(ctx, fmt.Sprintf("/%d/info.0.json", number))
 }
 
+// Latest fetches the latest xkcd comic.
 func (c *Client) Latest(ctx context.Context) (Comic, error) {
 	return c.do(ctx, fmt.Sprintf("/info.0.json"))
 }

@@ -13,7 +13,7 @@ import (
 
 var (
 	responseLatest = []byte(`{"month":"4","num":2293,"link":"","year":"2020","news":"","safe_title":"RIP John Conway","transcript":"","alt":"1937-2020","img":"https://imgs.xkcd.com/comics/rip_john_conway.gif","title":"RIP John Conway","day":"13"}`)
-	response144     = []byte(`{"month":"8","num":144,"link":"","year":"2006","news":"","safe_title":"Parody Week: A Softer World","transcript":"when we open the lab each morning, we tell the robot to kill\nit's our little joke\nbut secretly\nwe're just afraid\nto tell it to love","alt":"The robot is pregnant.  It isn't mine.","img":"https://imgs.xkcd.com/comics/a_softer_robot.jpg","title":"Parody Week: A Softer World","day":"17"}`)
+	response144    = []byte(`{"month":"8","num":144,"link":"","year":"2006","news":"","safe_title":"Parody Week: A Softer World","transcript":"when we open the lab each morning, we tell the robot to kill\nit's our little joke\nbut secretly\nwe're just afraid\nto tell it to love","alt":"The robot is pregnant.  It isn't mine.","img":"https://imgs.xkcd.com/comics/a_softer_robot.jpg","title":"Parody Week: A Softer World","day":"17"}`)
 
 	comicLatest = Comic{
 		Month:     4,
