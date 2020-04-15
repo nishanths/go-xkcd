@@ -19,7 +19,7 @@ type Client struct {
 }
 
 // NewClient constructs a client using http.DefaultClient and the default
-// base URL. It is ready for use.
+// base URL. The returned client is ready for use.
 func NewClient() *Client {
 	return &Client{
 		HTTPClient: http.DefaultClient,
