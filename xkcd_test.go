@@ -138,7 +138,7 @@ func TestStatusError(t *testing.T) {
 			}
 			statusErr, ok := err.(StatusError)
 			if !ok {
-				t.Errorf("error unexpectedly nil")
+				t.Errorf("wrong error type")
 				return
 			}
 			if statusErr.Code != 404 {
