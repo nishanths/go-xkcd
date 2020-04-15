@@ -1,6 +1,7 @@
 package xkcd
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -68,14 +69,41 @@ func (e StatusError) Error() string {
 	return fmt.Sprintf("bad response status code: %d", e.Code)
 }
 
-// Get fetches the xkcd comic for the given comic number.
+// Get returns the xkcd comic for the given comic number.
 func (c *Client) Get(ctx context.Context, number int) (Comic, error) {
 	return c.do(ctx, fmt.Sprintf("/%d/info.0.json", number))
 }
 
-// Latest fetches the latest xkcd comic.
+// Latest returns the latest xkcd comic.
 func (c *Client) Latest(ctx context.Context) (Comic, error) {
 	return c.do(ctx, fmt.Sprintf("/info.0.json"))
+}
+
+// Image returns the image for the given comic number and the Content-Type.
+func (c *Client) Image(ctx context.Context, number int) (io.Reader, string, error) {
+	comic, err := c.Get(ctx, number)
+	if err != nil {
+		return nil, "", err
+	}
+
+	req, err := http.NewRequest("GET", comic.ImageURL, nil)
+	if err != nil {
+		return nil, "", fmt.Errorf("failed to build image request: %s", err)
+	}
+	req = req.WithContext(ctx)
+
+	rsp, err := c.HTTPClient.Do(req)
+	if err != nil {
+		return nil, "", fmt.Errorf("failed to do image request: %s", err)
+	}
+	defer drainAndClose(rsp.Body)
+
+	var buf bytes.Buffer
+	if _, err := io.Copy(&buf, rsp.Body); err != nil {
+		return nil, "", fmt.Errorf("failed to do copy image: %s", err)
+	}
+
+	return &buf, rsp.Header.Get("Content-Type"), nil
 }
 
 func (c *Client) do(ctx context.Context, reqPath string) (Comic, error) {

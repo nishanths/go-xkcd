@@ -1,9 +1,11 @@
 package xkcd
 
 import (
+	"bytes"
 	"context"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"math"
 	"net/http"
 	"net/http/httptest"
@@ -120,6 +122,35 @@ func TestGet(t *testing.T) {
 			}
 			if comic144 != comic {
 				t.Errorf("comics do not match:\nexpected=%+v\n     got=%+v", comic144, comic)
+				return
+			}
+		})
+	}
+}
+
+func TestImage(t *testing.T) {
+	expect, err := ioutil.ReadFile("testdata/a_softer_robot.jpg")
+	if err != nil {
+		t.Fatalf("failed to read file")
+	}
+	for _, c := range clients {
+		t.Run(c.desc, func(t *testing.T) {
+			img, contentType, err := c.client.Image(context.Background(), 144)
+			if err != nil {
+				t.Errorf("%v", err)
+				return
+			}
+			b, err := ioutil.ReadAll(img)
+			if err != nil {
+				t.Errorf("failed to read image")
+				return
+			}
+			if !bytes.Equal(expect, b) {
+				t.Errorf("images do not match")
+				return
+			}
+			if contentType != "image/jpeg" {
+				t.Errorf("wrong content type: %s", contentType)
 				return
 			}
 		})
