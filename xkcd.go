@@ -79,7 +79,8 @@ func (c *Client) Latest(ctx context.Context) (Comic, error) {
 	return c.do(ctx, fmt.Sprintf("/info.0.json"))
 }
 
-// Image returns the image for the given comic number and the image's Content-Type.
+// Image returns the image data for the given comic number and the value of the 
+// image response's Content-Type header.
 func (c *Client) Image(ctx context.Context, number int) (io.Reader, string, error) {
 	comic, err := c.Get(ctx, number)
 	if err != nil {
