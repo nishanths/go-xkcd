@@ -129,6 +129,8 @@ func TestGet(t *testing.T) {
 }
 
 func TestImage(t *testing.T) {
+	t.Parallel()
+
 	expect, err := ioutil.ReadFile("testdata/a_softer_robot.jpg")
 	if err != nil {
 		t.Fatalf("failed to read file")

@@ -79,7 +79,7 @@ func (c *Client) Latest(ctx context.Context) (Comic, error) {
 	return c.do(ctx, fmt.Sprintf("/info.0.json"))
 }
 
-// Image returns the image data for the given comic number and the value of the 
+// Image returns the image data for the given comic number and the value of the
 // image response's Content-Type header.
 func (c *Client) Image(ctx context.Context, number int) (io.Reader, string, error) {
 	comic, err := c.Get(ctx, number)
@@ -98,6 +98,10 @@ func (c *Client) Image(ctx context.Context, number int) (io.Reader, string, erro
 		return nil, "", fmt.Errorf("failed to do image request: %s", err)
 	}
 	defer drainAndClose(rsp.Body)
+
+	if rsp.StatusCode != 200 {
+		return nil, "", StatusError{Code: rsp.StatusCode}
+	}
 
 	var buf bytes.Buffer
 	if _, err := io.Copy(&buf, rsp.Body); err != nil {
@@ -118,10 +122,11 @@ func (c *Client) do(ctx context.Context, reqPath string) (Comic, error) {
 	if err != nil {
 		return Comic{}, fmt.Errorf("failed to do request: %v", err)
 	}
+	defer drainAndClose(rsp.Body)
+
 	if rsp.StatusCode != 200 {
 		return Comic{}, StatusError{Code: rsp.StatusCode}
 	}
-	defer drainAndClose(rsp.Body)
 
 	var cr comicResponse
 	if err := json.NewDecoder(rsp.Body).Decode(&cr); err != nil {
