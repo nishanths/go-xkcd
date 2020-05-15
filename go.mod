@@ -1,3 +1,3 @@
-module github.com/nishanths/go-xkcd/v2
+module github.com/nishanths/go-xkcd
 
 go 1.14

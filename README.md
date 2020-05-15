@@ -14,7 +14,7 @@ Details on the xkcd API can be found [here](https://xkcd.com/json.html).
 Import the package as:
 
 ```
-github.com/nishanths/go-xkcd/v2
+github.com/nishanths/go-xkcd
 ```
 
 and refer to it as `xkcd`.
@@ -31,12 +31,12 @@ import (
     "fmt"
     "log"
 
-    "github.com/nishanths/go-xkcd/v2"
+    "github.com/nishanths/go-xkcd"
 )
 
 func main() {
     client := xkcd.NewClient()
-    
+
     comic, err := client.Get(context.Background(), 599)
     if err != nil {
         log.Fatal(err)
