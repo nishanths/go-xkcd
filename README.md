@@ -9,15 +9,19 @@ HTTP Client for the xkcd API.
 
 Details on the xkcd API can be found [here](https://xkcd.com/json.html).
 
-## Import path
+## Install
 
-Import the package as:
+Outside a project using go modules, get the latest version by running:
 
 ```
-github.com/nishanths/go-xkcd/v2
+go get github.com/nishanths/go-xkcd
 ```
 
-and refer to it as `xkcd`.
+Inside a project using go modules, use:
+
+```
+go get github.com/nishanths/go-xkcd@latest
+```
 
 ## Example
 
@@ -36,7 +40,7 @@ import (
 
 func main() {
     client := xkcd.NewClient()
-    
+
     comic, err := client.Get(context.Background(), 599)
     if err != nil {
         log.Fatal(err)
