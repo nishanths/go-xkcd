@@ -1,0 +1,31 @@
+{
+  "keep": false,
+  "latest": {
+    "Alt": "",
+    "Day": 0,
+    "ImageURL": "",
+    "URL": "",
+    "Month": 0,
+    "News": "",
+    "Number": 0,
+    "SafeTitle": "",
+    "Title": "",
+    "Transcript": "",
+    "Year": 0
+  },
+  "lastSaw": {
+    "Alt": "",
+    "Day": 0,
+    "ImageURL": "",
+    "URL": "",
+    "Month": 0,
+    "News": "",
+    "Number": 0,
+    "SafeTitle": "",
+    "Title": "",
+    "Transcript": "",
+    "Year": 0
+  },
+  "lastCheck": "0001-01-01T00:00:00Z",
+  "likes": null
+}
