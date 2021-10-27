@@ -1,6 +1,5 @@
 /*
    A template for adding descriptive error reports to a command line interface
-																						   - kendfss
 */
 package main
 

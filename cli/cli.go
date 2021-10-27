@@ -59,37 +59,17 @@ func setLatestComic(force bool) error {
 	return nil
 }
 
-func Usage() {
-	fmt.Fprintf(os.Stderr, "Usage of %s [mode] [params]\n", os.Args[0])
-	for name := range modes {
-		help(name)
-		fmt.Fprintf(os.Stderr, "\n")
-	}
-
-	fmt.Fprintf(os.Stderr, "all comics downloaded to %q\n", comicFolder)
-}
-
-// Get info for a specific mode
-// non-existant arguments will be ignored
 func help(modeName string) {
 	mode, exists := modes[modeName]
 	if exists {
-		fmt.Fprintf(os.Stderr, modeName+"\n")
+		fmt.Println(modeName)
 		mode.PrintDefaults()
 		if modeName == helpMode.Name() {
-			fmt.Fprintf(os.Stderr, "  Print this information\n")
+			fmt.Println("  Print this information")
 		} else if modeName == configMode.Name() {
-			fmt.Fprintf(os.Stderr, "\tconfig file located @ %q\n", settings.Path())
+			fmt.Printf("config located @ %q\n", settings.Path())
 		}
 	}
-}
-
-func userLikes() map[int]string {
-	table := make(map[int]string)
-	for _, index := range settings.Likes {
-		table[index] = comicName(index)
-	}
-	return table
 }
 
 func restoreLikes() {
@@ -97,6 +77,7 @@ func restoreLikes() {
 	defer cancel()
 	for _, index := range settings.Likes {
 		comic, err := client.Get(ctx, index)
+		// comic, err := client.Get(context.Background(), index)
 		if err != nil {
 			internalError.Abortf("Restoring Likes: Comic number %d doesn't exist or couldn't be accessed. Double check your connection and try again:\n\t%s", id, err)
 		}
@@ -106,6 +87,8 @@ func restoreLikes() {
 		}
 	}
 }
+
+// func getComic(id int) error {}
 
 func displayComic(id int) {
 	comic, err := client.Get(bgctx, id)
@@ -150,6 +133,24 @@ func cleanUp() error {
 	return nil
 }
 
+func userLikes() map[int]string {
+	table := make(map[int]string)
+	for _, index := range settings.Likes {
+		table[index] = comicName(index)
+	}
+	return table
+}
+
+func Usage() {
+	fmt.Println("Usage of", os.Args[0], "[mode]", "[params]")
+	for name := range modes {
+		help(name)
+		fmt.Println()
+	}
+
+	fmt.Printf("all comics downloaded to %q\n", comicFolder)
+}
+
 func main() {
 	min = 1
 	err = settings.Load()
@@ -168,7 +169,7 @@ func main() {
 	fetchMode.IntVar(&id, "id", id, "the index of the comic you want to see")
 	fetchMode.BoolVar(&force, "f", force, "grab the latest comic even if checked within the last 24 hours")
 
-	configMode.BoolVar(&keep, "k", keep, "Toggle whether or not to keep comics after displaying them"+fmt.Sprintf(" (currently '%t')", settings.Keep))
+	configMode.BoolVar(&keep, "k", keep, "Toggle whether or not to keep comics after displaying them (default: false)")
 	configMode.BoolVar(&dir, "d", dir, "Open the directory of the config file, instead of the file itself")
 
 	likeMode.BoolVar(&view, "v", view, "View your likes")
@@ -283,10 +284,13 @@ func main() {
 				id = latest.Number
 			}
 		default:
-			userInputError.Abortf("Cannot interpret mode/command: %q", os.Args[1])
+			flag.Usage()
+			flag.PrintDefaults()
+			userInputError.Abortf("Couldn't parse args: %s", os.Args[1:])
 		}
 	} else {
 		flag.Usage()
+		flag.PrintDefaults()
 		noError.Abort("")
 	}
 

@@ -1,6 +1,5 @@
 /*
    A template for adding persistent & accessible configuration systems to CLIs
-																						   - kendfss
 */
 package main
 
