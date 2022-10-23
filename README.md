@@ -20,7 +20,7 @@ go get github.com/nishanths/go-xkcd
 Inside a project using go modules, use:
 
 ```
-go get github.com/nishanths/go-xkcd@latest
+go get github.com/nishanths/go-xkcd/v2
 ```
 
 ## Example
